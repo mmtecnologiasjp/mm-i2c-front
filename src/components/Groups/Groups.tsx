@@ -1,13 +1,13 @@
-import { useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
 import { useUserGroupsQuery } from '../../hooks/useUserGroupsQuery';
-import { GroupCard } from '../GroupCard';
 import { NavBarList } from '../NavBarList';
 
 export function Groups() {
   const { groups } = useUserGroupsQuery();
-  const { uuid } = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
+  const uuid = location.pathname.split('/')[2];
 
   const handleNavigate = (uuid: string) => {
     navigate(`/group/${uuid}`);

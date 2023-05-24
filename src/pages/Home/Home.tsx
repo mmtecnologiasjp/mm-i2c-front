@@ -1,9 +1,9 @@
-import { NavBar } from '../../components/NavBar';
+import { PrivateConversationChat } from '../PrivateConversationChat';
 
 export function Home() {
   return (
-    <div>
-      <NavBar />
-    </div>
+    <main>
+      <PrivateConversationChat />
+    </main>
   );
 }

@@ -1,30 +1,50 @@
-import { useNavigate, useParams } from 'react-router-dom';
+import { BsFillSendPlusFill } from 'react-icons/bs';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import { useUserPrivateConversations } from '../../hooks/useUserPrivateConversations';
+import { HStack } from '../HStack';
+import { InviteFriend } from '../InviteFriend';
 import { NavBarList } from '../NavBarList';
+
+export function Test() {
+  return <li>hello</li>;
+}
 
 export function PrivateConversations() {
   const { privateConversationsUsers } = useUserPrivateConversations();
-  const { uuid } = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
+  const [, , uuid] = location.pathname.split('/');
 
   const handleNavigation = (uuid: string) => {
-    return navigate(`/privateConversations/${uuid}`);
+    return navigate(`/privateConversation/${uuid}`);
   };
+
+  console.log(privateConversationsUsers);
 
   return (
     <div>
       <NavBarList listName="Private Conversations">
-        {privateConversationsUsers?.map((privateConversationUser) => (
-          <NavBarList.Item
-            uuid={privateConversationUser.uuid}
-            isActive={privateConversationUser?.uuid === uuid}
-            key={privateConversationUser.uuid}
-            name={privateConversationUser.first_name}
-            imageUrl={privateConversationUser.avatar_url}
-            onItemClicked={handleNavigation}
-          />
-        ))}
+        {privateConversationsUsers?.map((privateConversationUser, index, array) => {
+          const isActive = privateConversationUser.privateConversationUuid === uuid;
+
+          return (
+            <NavBarList.Item
+              imageUrl={
+                privateConversationUser.avatar_url ??
+                'https://t4.ftcdn.net/jpg/00/65/10/47/360_F_65104718_x17a76wzWKIm3BlhA6uyYVkDs9982c6q.jpg'
+              }
+              key={privateConversationUser.uuid}
+              onItemClicked={handleNavigation}
+              name={privateConversationUser.first_name}
+              isActive={isActive}
+              uuid={privateConversationUser.privateConversationUuid}
+            />
+          );
+        })}
+        <li>
+          <InviteFriend />
+        </li>
       </NavBarList>
     </div>
   );
