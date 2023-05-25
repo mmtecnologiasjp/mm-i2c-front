@@ -7,9 +7,12 @@ export function UserHorizontalCard() {
   return (
     <HStack className="items-center space-x-4 pt-12 ml-3.5">
       <img
-        src="https://www.shareicon.net/data/2016/05/24/770137_man_512x512.png"
+        src={
+          user?.avatar_url ??
+          'https://www.shareicon.net/data/2016/05/24/770137_man_512x512.png'
+        }
         alt=""
-        className="w-20"
+        className="w-20 rounded-full"
       />
       <p className="font-larsseit space-x-1 text-white">
         <span>{user?.first_name}</span>

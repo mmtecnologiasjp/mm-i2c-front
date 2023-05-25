@@ -11,10 +11,12 @@ const fetchPrivateConversations = async () => {
   return res.data;
 };
 
+export const privateConversationsQueryKey = 'private_conversations';
+
 export const useUserPrivateConversations = () => {
   const { data } = useQuery({
     queryFn: fetchPrivateConversations,
-    queryKey: 'privateConversations',
+    queryKey: [privateConversationsQueryKey],
   });
 
   return { privateConversationsUsers: data };

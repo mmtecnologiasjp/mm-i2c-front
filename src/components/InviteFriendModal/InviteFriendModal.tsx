@@ -1,13 +1,16 @@
 import { useEffect, useState } from 'react';
 import { AiOutlineMail } from 'react-icons/ai';
 import { BsFillSendPlusFill } from 'react-icons/bs';
+import { useNavigate } from 'react-router-dom';
 
 import { useUserByEmailQuery } from '../../hooks/useUserByEmailQuery';
 import { useUserPrivateConversationMutation } from '../../hooks/useUserPrivateConversationMutation';
+import { useUserPrivateConversations } from '../../hooks/useUserPrivateConversations';
 import { User } from '../../hooks/useUserQuery/types';
 import { HStack } from '../HStack';
 
-export function InviteFriend() {
+export function InviteFriendModal({ isOpen }: { isOpen: boolean }) {
+  const [userSelected, setUserSelected] = useState({} as User | null);
   const [email, setEmail] = useState('');
   const {
     enableQuery,
@@ -17,12 +20,9 @@ export function InviteFriend() {
     enablePrevioudata,
     disablePreviousData,
   } = useUserByEmailQuery(email);
-  const [userSelected, setUserSelected] = useState({} as User | null);
   const { executeMutation } = useUserPrivateConversationMutation();
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value);
-  };
+  const { privateConversationsUsers } = useUserPrivateConversations();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!email) return disablePreviousData();
@@ -39,35 +39,46 @@ export function InviteFriend() {
     return () => clearTimeout(delayDebounceFn);
   }, [email]);
 
-  const handleSetUserSelected = (User: User) => {
-    setUserSelected(User);
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value);
   };
 
   const removeUserSelected = () => {
     setUserSelected(null);
   };
 
+  const handleSetUserSelected = (User: User) => {
+    setUserSelected(User);
+  };
+
   const handleInvite = () => {
     if (!userSelected) return;
 
-    executeMutation({
-      from_uuid: import.meta.env.VITE_USER_MOCK_UUID,
-      to_uuid: userSelected.uuid,
+    const userAlreadyInConversation = privateConversationsUsers?.find((item) => {
+      return item.uuid === userSelected.uuid;
     });
-    alert('created!');
+
+    if (userAlreadyInConversation) {
+      navigate(
+        `/privateConversation/${userAlreadyInConversation.privateConversationUuid}`,
+      );
+    }
+
+    // console.log('USER', alreadyHaveConversation);
+
+    // executeMutation({
+    //   from_uuid: import.meta.env.VITE_USER_MOCK_UUID,
+    //   to_uuid: userSelected.uuid,
+    // });
+    // alert('created!');
   };
 
   return (
-    <label htmlFor="my-modal">
-      <BsFillSendPlusFill />
+    <>
       <label
         htmlFor="my-modal"
-        className="font-larsseit text-white btn bg-transparent border-none hover:border-none hover:bg-transparent"
+        className={`modal ${isOpen && 'modal-open'} cursor-pointer`}
       >
-        Invite a friend
-      </label>
-      <input type="checkbox" id="my-modal" className="modal-toggle" />
-      <label htmlFor="my-modal" className="modal cursor-pointer">
         <label className="modal-box relative" htmlFor="1">
           <label
             htmlFor="my-modal"
@@ -86,7 +97,7 @@ export function InviteFriend() {
                   placeholder="User email"
                   className="input input-bordered w-full focus:outline-none"
                   value={email}
-                  onChange={handleChange}
+                  onChange={handleEmailChange}
                 />
               ) : (
                 <div className="input input-bordered w-full focus:outline-none flex items-center font-larsseit">
@@ -161,6 +172,6 @@ export function InviteFriend() {
           <div></div>
         </label>
       </label>
-    </label>
+    </>
   );
 }

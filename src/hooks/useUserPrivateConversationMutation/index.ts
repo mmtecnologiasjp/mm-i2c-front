@@ -1,6 +1,8 @@
 import { useMutation, useQueryClient } from 'react-query';
 
 import { api } from '../../services/api';
+import { privateConversationsQueryKey } from '../useUserPrivateConversations';
+import { UserPrivateConversations } from '../useUserPrivateConversations/types';
 
 const createPrivateConversation = async ({
   from_uuid,
@@ -21,8 +23,15 @@ export const useUserPrivateConversationMutation = () => {
   const queryClient = useQueryClient();
   const { mutate } = useMutation({
     mutationFn: createPrivateConversation,
-    mutationKey: ['private_conversations'],
-    // onSuccess: (data) => {},
+    mutationKey: ['private_conversation_mutation'],
+    onSuccess: (newData: UserPrivateConversations) => {
+      queryClient.setQueryData<UserPrivateConversations[]>(
+        [privateConversationsQueryKey],
+        (oldData) => {
+          return oldData ? [...oldData, newData] : [];
+        },
+      );
+    },
   });
 
   const executeMutation = ({

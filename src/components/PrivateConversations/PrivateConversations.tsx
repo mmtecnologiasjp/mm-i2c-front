@@ -20,12 +20,10 @@ export function PrivateConversations() {
     return navigate(`/privateConversation/${uuid}`);
   };
 
-  console.log(privateConversationsUsers);
-
   return (
     <div>
       <NavBarList listName="Private Conversations">
-        {privateConversationsUsers?.map((privateConversationUser, index, array) => {
+        {privateConversationsUsers?.map((privateConversationUser) => {
           const isActive = privateConversationUser.privateConversationUuid === uuid;
 
           return (
@@ -42,9 +40,6 @@ export function PrivateConversations() {
             />
           );
         })}
-        <li>
-          <InviteFriend />
-        </li>
       </NavBarList>
     </div>
   );

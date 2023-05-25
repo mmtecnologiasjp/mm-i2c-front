@@ -12,7 +12,7 @@ const fetchPrivateConversation = async (uuid: string | undefined) => {
 export const usePrivateConversationQuery = (uuid: string | undefined) => {
   const { data } = useQuery({
     queryFn: () => fetchPrivateConversation(uuid),
-    queryKey: ['private_conversations', uuid],
+    queryKey: ['private_conversation', uuid],
   });
 
   return { privateConversation: data };
