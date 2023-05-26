@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { useUserByEmailQuery } from '../../hooks/useUserByEmailQuery';
 import { useUserPrivateConversationMutation } from '../../hooks/useUserPrivateConversationMutation';
-import { useUserPrivateConversations } from '../../hooks/useUserPrivateConversations';
+import { useUserPrivateConversationsQuery } from '../../hooks/useUserPrivateConversations';
 import { User } from '../../hooks/useUserQuery/types';
 import { HStack } from '../HStack';
 
@@ -25,7 +25,7 @@ export function InvitePersonModalContent({
     disablePreviousData,
   } = useUserByEmailQuery(email);
   const { executeMutation } = useUserPrivateConversationMutation();
-  const { privateConversationsUsers } = useUserPrivateConversations();
+  const { privateConversationsUsers } = useUserPrivateConversationsQuery();
   const navigate = useNavigate();
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -82,8 +82,8 @@ export function InvitePersonModalContent({
   };
 
   return (
-    <div className="">
-      <h3 className="font-larsseit mt-0.5 text-xl">Invite a person</h3>
+    <div>
+      <h3 className="modal-header">Invite a person</h3>
       <div className="divider"></div>
       <div className="input-group">
         {userSelected?.email ? (

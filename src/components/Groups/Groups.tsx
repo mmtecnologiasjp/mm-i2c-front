@@ -1,4 +1,4 @@
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import { useUserGroupsQuery } from '../../hooks/useUserGroupsQuery';
 import { NavBarList } from '../NavBarList';
@@ -16,16 +16,22 @@ export function Groups() {
   return (
     <div>
       <NavBarList listName="Groups">
-        {groups?.map((group) => (
-          <NavBarList.Item
-            key={group.uuid}
-            imageUrl={group.image_url}
-            isActive={group.uuid === uuid}
-            name={group.name}
-            uuid={group.uuid}
-            onItemClicked={handleNavigate}
-          />
-        ))}
+        {groups?.length ? (
+          <>
+            {groups.map((group) => (
+              <NavBarList.Item
+                key={group.uuid}
+                imageUrl={group.image_url}
+                isActive={group.uuid === uuid}
+                name={group.name}
+                uuid={group.uuid}
+                onItemClicked={handleNavigate}
+              />
+            ))}
+          </>
+        ) : (
+          <NavBarList.ListEmpty label="You don't have any groups yet" />
+        )}
       </NavBarList>
     </div>
   );

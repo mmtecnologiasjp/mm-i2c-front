@@ -1,7 +1,7 @@
 import { BsFillSendPlusFill } from 'react-icons/bs';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { useUserPrivateConversations } from '../../hooks/useUserPrivateConversations';
+import { useUserPrivateConversationsQuery } from '../../hooks/useUserPrivateConversations';
 import { HStack } from '../HStack';
 import { InviteFriend } from '../InviteFriend';
 import { NavBarList } from '../NavBarList';
@@ -11,7 +11,7 @@ export function Test() {
 }
 
 export function PrivateConversations() {
-  const { privateConversationsUsers } = useUserPrivateConversations();
+  const { privateConversationsUsers } = useUserPrivateConversationsQuery();
   const navigate = useNavigate();
   const location = useLocation();
   const [, , uuid] = location.pathname.split('/');

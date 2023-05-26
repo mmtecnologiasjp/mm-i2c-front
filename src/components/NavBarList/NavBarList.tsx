@@ -22,7 +22,10 @@ function Main({ listName, children }: { listName: string; children: React.ReactN
 
   return (
     <>
-      <HStack className="items-center space-x-1 ml-2 mt-12">
+      <HStack
+        className="items-center space-x-1 ml-2 mt-8 cursor-pointer"
+        onClick={onToggle}
+      >
         {icons[isListVisible ? 'down' : 'right']}
         <p className="text-white font-larsseit mt-0.5 select-none">
           {capitalize(listName)}
@@ -58,4 +61,12 @@ function Item({
   );
 }
 
-export const NavBarList = Object.assign(Main, { Item });
+function ListEmpty({ label }: { label: string }) {
+  return (
+    <li className="disabled">
+      <p className="font-larsseit mt-0.5 text-white">{label}</p>
+    </li>
+  );
+}
+
+export const NavBarList = Object.assign(Main, { Item, ListEmpty });

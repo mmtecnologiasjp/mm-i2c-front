@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { useUserByEmailQuery } from '../../hooks/useUserByEmailQuery';
 import { useUserPrivateConversationMutation } from '../../hooks/useUserPrivateConversationMutation';
-import { useUserPrivateConversations } from '../../hooks/useUserPrivateConversations';
+import { useUserPrivateConversationsQuery } from '../../hooks/useUserPrivateConversations';
 import { User } from '../../hooks/useUserQuery/types';
 import { HStack } from '../HStack';
 
@@ -21,7 +21,7 @@ export function InviteFriendModal({ isOpen }: { isOpen: boolean }) {
     disablePreviousData,
   } = useUserByEmailQuery(email);
   const { executeMutation } = useUserPrivateConversationMutation();
-  const { privateConversationsUsers } = useUserPrivateConversations();
+  const { privateConversationsUsers } = useUserPrivateConversationsQuery();
   const navigate = useNavigate();
 
   useEffect(() => {
