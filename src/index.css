@@ -5,6 +5,6 @@
 
 @layer components {
   .modal-header {
-    @apply font-larsseit mt-0.5 text-xl
+    @apply font-larsseit mt-0.5 text-xl;
   }
 }
