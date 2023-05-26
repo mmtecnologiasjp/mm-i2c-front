@@ -1,9 +1,6 @@
-import { BsFillSendPlusFill } from 'react-icons/bs';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { useUserPrivateConversationsQuery } from '../../hooks/useUserPrivateConversations';
-import { HStack } from '../HStack';
-import { InviteFriend } from '../InviteFriend';
 import { NavBarList } from '../NavBarList';
 
 export function Test() {
