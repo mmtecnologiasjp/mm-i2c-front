@@ -47,6 +47,6 @@
     "typescript": "^5.0.4",
     "vite": "^4.3.8"
   },
-  "pre-commit": "lint",
+  "pre-commit": "lint && type-check",
   "license": "MIT"
 }
