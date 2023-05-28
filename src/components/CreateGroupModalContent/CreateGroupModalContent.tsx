@@ -1,6 +1,7 @@
 import cs from 'classnames';
 import { useEffect, useRef, useState } from 'react';
 import Avatar from 'react-avatar-edit';
+import { toast } from 'react-hot-toast';
 
 import { useCreateGroupMutation } from '../../hooks/useCreateGroupMutation';
 import { HStack } from '../HStack';
@@ -15,7 +16,7 @@ export function CreateGroupModalContent({
     description: '',
   });
   const [base64Url, setBase64Url] = useState<URL | null>(null);
-  const { mutate } = useCreateGroupMutation();
+  const { mutateAsync } = useCreateGroupMutation();
   const componentIsMunt = useRef(false);
 
   const onFieldChange = (
@@ -53,20 +54,28 @@ export function CreateGroupModalContent({
     componentIsMunt.current = true;
   }, [onCloseDueNavigation]);
 
+  const resetAndCloseModal = () => {
+    cleanStates();
+    onCloseDueNavigation();
+  };
+
   const handleCreateGroup = () => {
     if (!formValues.name || !formValues.description) return;
-    if (!base64Url) return;
 
     const data = {
       name: formValues.name,
       description: formValues.description,
-      image_url: base64Url.toString(),
+      image_url: base64Url?.toString() ?? '',
       creator_uuid: import.meta.env.VITE_USER_MOCK_UUID,
     };
 
-    mutate(data);
-    cleanStates();
-    onCloseDueNavigation();
+    toast
+      .promise(mutateAsync(data), {
+        success: 'Group created successfully',
+        loading: 'Creating group...',
+        error: 'Something went wrong',
+      })
+      .finally(resetAndCloseModal);
   };
 
   return (

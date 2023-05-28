@@ -11,7 +11,7 @@ export function PrivateConversations() {
   const { privateConversationsUsers } = useUserPrivateConversationsQuery();
   const navigate = useNavigate();
   const location = useLocation();
-  const [, , uuid] = location.pathname.split('/');
+  const uuid = location.pathname.split('/')[2];
 
   const handleNavigation = (uuid: string) => {
     return navigate(`/privateConversation/${uuid}`);

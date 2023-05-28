@@ -5,6 +5,8 @@ import { SearchModalContent } from '../SearchModalContent';
 export function NavBarSearch() {
   const [isOpen, onToggle] = useDisclose();
 
+  console.log(isOpen);
+
   return (
     <div className="form-control mx-2">
       <div className="input-group mt-4">
@@ -37,7 +39,7 @@ export function NavBarSearch() {
         </button>
       </div>
       <Modal open={isOpen} disableClickOutside={!isOpen} onClose={onToggle}>
-        <SearchModalContent />
+        <SearchModalContent onCloseDueNavigation={onToggle} />
       </Modal>
     </div>
   );

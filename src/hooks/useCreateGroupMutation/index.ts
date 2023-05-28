@@ -15,7 +15,7 @@ export const useCreateGroupMutation = () => {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
 
-  const { mutate } = useMutation({
+  const { mutateAsync } = useMutation({
     mutationFn: createGroup,
     mutationKey: ['create_group_mutation'],
     onSuccess: (newData: Group) => {
@@ -30,5 +30,5 @@ export const useCreateGroupMutation = () => {
     },
   });
 
-  return { mutate };
+  return { mutateAsync };
 };

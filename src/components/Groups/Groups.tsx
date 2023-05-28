@@ -1,5 +1,6 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 
+import { groupImageDefault } from '../../constants/images_template';
 import { useUserGroupsQuery } from '../../hooks/useUserGroupsQuery';
 import { NavBarList } from '../NavBarList';
 
@@ -21,7 +22,7 @@ export function Groups() {
             {groups.map((group) => (
               <NavBarList.Item
                 key={group.uuid}
-                imageUrl={group.image_url}
+                imageUrl={group.image_url || groupImageDefault}
                 isActive={group.uuid === uuid}
                 name={group.name}
                 uuid={group.uuid}

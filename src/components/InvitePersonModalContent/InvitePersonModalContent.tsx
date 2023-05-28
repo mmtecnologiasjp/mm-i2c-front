@@ -8,6 +8,7 @@ import { useUserPrivateConversationMutation } from '../../hooks/useUserPrivateCo
 import { useUserPrivateConversationsQuery } from '../../hooks/useUserPrivateConversations';
 import { User } from '../../hooks/useUserQuery/types';
 import { HStack } from '../HStack';
+import { UserCardSearchedOnInvite } from '../UserCardSearchedOnInvite';
 
 export function InvitePersonModalContent({
   onCloseDueNavigation,
@@ -27,12 +28,14 @@ export function InvitePersonModalContent({
   const { executeMutation } = useUserPrivateConversationMutation();
   const { privateConversationsUsers } = useUserPrivateConversationsQuery();
   const navigate = useNavigate();
+  const [userSearched, setUserSearched] = useState(false);
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
   };
 
   useEffect(() => {
+    setUserSearched(false);
     if (!email) return disablePreviousData();
     enablePrevioudata();
 
@@ -41,6 +44,7 @@ export function InvitePersonModalContent({
 
       refetch().finally(() => {
         disableQuery();
+        setUserSearched(true);
       });
     }, 500);
 
@@ -117,43 +121,26 @@ export function InvitePersonModalContent({
         </div>
       </div>
       <div>
-        {users && (
-          <div
-            className={`border-1 mt-1 py-4 px-10 sm:px-0 ${
-              userSelected?.email && 'hidden'
-            }`}
-          >
-            {users.map((item) => (
-              <HStack
-                className={`border mb-2 border-gray-600 items-center rounded-md  space-x-2 p-2.5 hover:bg-gray-700 cursor-pointer  ${
-                  userSelected?.email === item.email && 'bg-gray-700'
-                }`}
-                key={item.uuid}
-                onClick={() => handleSetUserSelected(item)}
-              >
-                <img
-                  className="w-8 rounded-full"
-                  src={
-                    item.avatar_url ??
-                    'https://t4.ftcdn.net/jpg/00/65/10/47/360_F_65104718_x17a76wzWKIm3BlhA6uyYVkDs9982c6q.jpg'
-                  }
-                  alt={`${item.first_name} avatar`}
+        <div
+          className={`border-1 mt-1 py-4 px-10 sm:px-0 ${
+            userSelected?.email ? 'hidden' : ''
+          }`}
+        >
+          {userSearched && users?.length
+            ? users?.map((user) => (
+                <UserCardSearchedOnInvite
+                  onClick={handleSetUserSelected}
+                  key={user.uuid}
+                  user={user}
                 />
-                <p className="font-larsseit mb-0.5 w-[50%] truncate">
-                  <span className="mr-1">{item.first_name}</span>
-                  {item.last_name}
-                </p>
-                <div className="sm:flex w-[50%]">
-                  <div className="tooltip w-full" data-tip={item.email}>
-                    <div className="flex w-44">
-                      <p className="truncate">{item.email}</p>
-                    </div>
-                  </div>
-                </div>
-              </HStack>
-            ))}
-          </div>
-        )}
+              ))
+            : null}
+          {userSearched && !users?.length && (
+            <div className="p-2">
+              <p className="text-gray-500 font-larsseit text-xl">No users found!</p>
+            </div>
+          )}
+        </div>
       </div>
       <HStack className="justify-end pr-2 mt-8 space-x-4">
         <button
