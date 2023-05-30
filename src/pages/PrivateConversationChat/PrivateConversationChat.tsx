@@ -1,10 +1,16 @@
-import { useParams } from 'react-router-dom';
-
-import { usePrivateConversationQuery } from '../../hooks/usePrivateConversationQuery';
+import { Chat } from '../../components/Chat';
+import { ChatContainer } from '../../components/ChatContainer';
+import { MessageInput } from '../../components/MessageInput';
+import { PrivateConversationBanner } from '../../components/PrivateConversationBanner';
 
 export function PrivateConversationChat() {
-  const { uuid } = useParams();
-  const { privateConversation } = usePrivateConversationQuery(uuid);
-
-  return <div></div>;
+  return (
+    <div className="flex-1">
+      <ChatContainer>
+        <PrivateConversationBanner />
+        <Chat />
+        <MessageInput />
+      </ChatContainer>
+    </div>
+  );
 }

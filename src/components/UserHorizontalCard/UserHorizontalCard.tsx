@@ -1,8 +1,8 @@
-import { useUserQuery } from '../../hooks/useUserQuery';
+import { useUser } from '../../store/useUser';
 import { HStack } from '../HStack';
 
 export function UserHorizontalCard() {
-  const { user } = useUserQuery();
+  const { user } = useUser();
 
   return (
     <HStack className="items-center space-x-4 pt-12 ml-3.5">

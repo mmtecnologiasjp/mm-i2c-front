@@ -2,7 +2,7 @@ import { PrivateConversationChat } from '../PrivateConversationChat';
 
 export function Home() {
   return (
-    <main className="relative">
+    <main className="flex-1">
       <PrivateConversationChat />
     </main>
   );

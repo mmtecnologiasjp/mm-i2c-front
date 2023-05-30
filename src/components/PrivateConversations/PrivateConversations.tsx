@@ -1,21 +1,42 @@
+import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { useUserPrivateConversationsQuery } from '../../hooks/useUserPrivateConversations';
+import { useOtherUserOnPrivateConversation } from '../../store/useOtherUserOnPrivateConversation';
 import { NavBarList } from '../NavBarList';
-
-export function Test() {
-  return <li>hello</li>;
-}
 
 export function PrivateConversations() {
   const { privateConversationsUsers } = useUserPrivateConversationsQuery();
   const navigate = useNavigate();
   const location = useLocation();
   const uuid = location.pathname.split('/')[2];
+  const {
+    actions: { storeOtherUser },
+  } = useOtherUserOnPrivateConversation();
+  const [hasLoaded, setHasLoaded] = useState(false);
 
   const handleNavigation = (uuid: string) => {
+    const userClicked = privateConversationsUsers?.find(
+      (user) => user.privateConversationUuid === uuid,
+    );
+
+    if (!userClicked) return;
+
+    console.log(userClicked, 'triggered');
+    storeOtherUser(userClicked);
+
     return navigate(`/privateConversation/${uuid}`);
   };
+
+  useEffect(() => {
+    if (!privateConversationsUsers?.length || hasLoaded) return;
+
+    storeOtherUser(privateConversationsUsers?.[0]);
+    navigate(
+      `/privateConversation/${privateConversationsUsers?.[0].privateConversationUuid}`,
+    );
+    setHasLoaded(true);
+  }, [privateConversationsUsers, hasLoaded]);
 
   return (
     <div>

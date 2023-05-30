@@ -7,7 +7,7 @@ import { NavBar } from '../components/NavBar';
 import { PrivateConversationChat } from '../pages/PrivateConversationChat';
 
 export function AnimatedRoutes() {
-  const { auth } = { auth: true };
+  const auth = true;
   const location = useLocation();
 
   const renderBasedOnAuthStatus = (Element?: JSX.Element) => {

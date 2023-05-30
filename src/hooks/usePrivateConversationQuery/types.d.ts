@@ -1,3 +1,5 @@
+import { User } from '../useUserQuery/types';
+
 interface Message {
   uuid: string;
   content: string;
@@ -7,6 +9,7 @@ interface Message {
   created_at: Date;
   updated_at: Date;
   deleted_at: Date | null;
+  sender: User;
 }
 
 export interface PrivateConversation {
@@ -16,6 +19,6 @@ export interface PrivateConversation {
   created_at: Date;
   updated_at: Date;
   deleted_at: null;
-  messages: Message[];
+  messages: Message[] | undefined;
   privateConversationUuid: string;
 }

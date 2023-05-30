@@ -2,6 +2,7 @@ import { useMutation, useQueryClient } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 
 import { api } from '../../services/api';
+import { useOtherUserOnPrivateConversation } from '../../store/useOtherUserOnPrivateConversation';
 import { privateConversationsQueryKey } from '../useUserPrivateConversations';
 import { UserPrivateConversations } from '../useUserPrivateConversations/types';
 
@@ -22,6 +23,9 @@ const createPrivateConversation = async ({
 
 export const useUserPrivateConversationMutation = () => {
   const queryClient = useQueryClient();
+  const {
+    actions: { storeOtherUser },
+  } = useOtherUserOnPrivateConversation();
   const navigate = useNavigate();
 
   const { mutate } = useMutation({
@@ -33,6 +37,7 @@ export const useUserPrivateConversationMutation = () => {
         (oldData) => {
           if (!oldData) return [];
 
+          storeOtherUser(newData);
           navigate(`/privateConversation/${newData.privateConversationUuid}`);
 
           return [...oldData, newData];

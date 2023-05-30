@@ -50,7 +50,7 @@ export function NavBarCreateIcon() {
             </div>
             <div
               className={userAddAndUserGroupAddClassNames.wrapper}
-              onClick={openInvitePersonModal}
+              onClick={onCreateGroupOpen}
             >
               <AiOutlineUsergroupAdd
                 className={userAddAndUserGroupAddClassNames.icon}

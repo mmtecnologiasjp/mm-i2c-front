@@ -7,13 +7,13 @@ export function useDisclose(initState?: boolean) {
     setIsOpen(!isOpen);
   };
 
-  const onOpen = () => {
-    setIsOpen(true);
-  };
-
   const onClose = () => {
     setIsOpen(false);
   };
 
-  return [isOpen, onToggle, onOpen, onClose] as const;
+  const onOpen = () => {
+    setIsOpen(true);
+  };
+
+  return [isOpen, onToggle, onClose, onOpen] as const;
 }

@@ -11,6 +11,7 @@
     "type-check": "tsc"
   },
   "dependencies": {
+    "@types/uuid": "^9.0.1",
     "axios": "^1.4.0",
     "classnames": "^2.3.2",
     "daisyui": "^2.51.6",
@@ -23,7 +24,9 @@
     "react-modal": "^3.16.1",
     "react-query": "^3.39.3",
     "react-router-dom": "^6.11.2",
-    "usehooks-ts": "^2.9.1"
+    "usehooks-ts": "^2.9.1",
+    "uuid": "^9.0.0",
+    "zustand": "^4.3.8"
   },
   "devDependencies": {
     "@types/node": "^20.2.3",

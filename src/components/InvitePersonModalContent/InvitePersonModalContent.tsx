@@ -7,6 +7,8 @@ import { useUserByEmailQuery } from '../../hooks/useUserByEmailQuery';
 import { useUserPrivateConversationMutation } from '../../hooks/useUserPrivateConversationMutation';
 import { useUserPrivateConversationsQuery } from '../../hooks/useUserPrivateConversations';
 import { User } from '../../hooks/useUserQuery/types';
+import { useOtherUserOnPrivateConversation } from '../../store/useOtherUserOnPrivateConversation';
+import { useUser } from '../../store/useUser';
 import { HStack } from '../HStack';
 import { UserCardSearchedOnInvite } from '../UserCardSearchedOnInvite';
 
@@ -29,6 +31,10 @@ export function InvitePersonModalContent({
   const { privateConversationsUsers } = useUserPrivateConversationsQuery();
   const navigate = useNavigate();
   const [userSearched, setUserSearched] = useState(false);
+  const {
+    actions: { storeOtherUser },
+  } = useOtherUserOnPrivateConversation();
+  const { user } = useUser();
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -65,7 +71,7 @@ export function InvitePersonModalContent({
   };
 
   const handleInvite = () => {
-    if (!userSelected) return;
+    if (!userSelected || !user) return;
 
     const userAlreadyInConversation = privateConversationsUsers?.find((item) => {
       return item.uuid === userSelected.uuid;
@@ -73,13 +79,14 @@ export function InvitePersonModalContent({
 
     if (userAlreadyInConversation) {
       resetStates();
+      storeOtherUser(userAlreadyInConversation);
       return navigate(
         `/privateConversation/${userAlreadyInConversation.privateConversationUuid}`,
       );
     }
 
     executeMutation({
-      from_uuid: import.meta.env.VITE_USER_MOCK_UUID,
+      from_uuid: user.uuid,
       to_uuid: userSelected.uuid,
     });
     resetStates();
