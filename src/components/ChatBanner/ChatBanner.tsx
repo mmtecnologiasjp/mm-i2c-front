@@ -4,9 +4,8 @@ import { MdAddTask } from 'react-icons/md';
 import { useOtherUserOnPrivateConversation } from '../../store/useOtherUserOnPrivateConversation';
 import { HStack } from '../HStack';
 
-export function PrivateConversationBanner() {
+export function ChatBanner() {
   const { otherUser } = useOtherUserOnPrivateConversation();
-  console.log(otherUser?.first_name);
 
   return (
     <HStack className="bg-gray-800 mt-5 rounded-lg p-5">

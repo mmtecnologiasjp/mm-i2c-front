@@ -15,9 +15,9 @@ export function Chat() {
           <Message
             key={message.uuid}
             content={message.content}
-            sender_image_url={message.sender.avatar_url ?? ''}
-            sender_name={message.sender.first_name + ' ' + message.sender.last_name}
-            sent_at={message.created_at}
+            senderImageUrl={message.sender.avatar_url ?? ''}
+            senderName={message.sender.first_name + ' ' + message.sender.last_name}
+            sentAt={message.created_at}
             isLastMessage={index + 1 === originalArray.length}
             isFirstMessage={true}
           />

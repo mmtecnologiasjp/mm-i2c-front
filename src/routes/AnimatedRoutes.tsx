@@ -4,6 +4,7 @@ import { Navigate, Route, Routes as RoutesGroup, useLocation } from 'react-route
 import App from '../App';
 import { HStack } from '../components/HStack';
 import { NavBar } from '../components/NavBar';
+import { GroupChat } from '../pages/GroupChat';
 import { PrivateConversationChat } from '../pages/PrivateConversationChat';
 
 export function AnimatedRoutes() {
@@ -22,7 +23,7 @@ export function AnimatedRoutes() {
         <NavBar />
         <RoutesGroup location={location} key={location.pathname}>
           <Route path="/" element={renderBasedOnAuthStatus()} />
-          <Route path="/group/:uuid" element={renderBasedOnAuthStatus()} />
+          <Route path="/group/:uuid" element={renderBasedOnAuthStatus(<GroupChat />)} />
           <Route
             path="/privateConversation/:uuid"
             element={renderBasedOnAuthStatus(<PrivateConversationChat />)}

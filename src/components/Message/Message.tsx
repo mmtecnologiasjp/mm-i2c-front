@@ -5,16 +5,16 @@ import { VStack } from '../VStack';
 
 export function Message({
   content,
-  sender_image_url,
-  sender_name,
-  sent_at,
+  senderImageUrl,
+  senderName,
+  sentAt,
   isLastMessage,
   isFirstMessage,
 }: {
   content: string;
-  sender_image_url: string;
-  sender_name: string;
-  sent_at: Date;
+  senderImageUrl: string;
+  senderName: string;
+  sentAt: string;
   isLastMessage: boolean;
   isFirstMessage: boolean;
 }) {
@@ -28,33 +28,67 @@ export function Message({
     return minutesPassed;
   }
 
-  const [minutesAgo, setMinutesAgo] = useState(calculateMinutesPassed(sent_at));
+  const sentAtDate = new Date(sentAt);
+
+  const wasSentToday = sentAtDate.toDateString() === new Date().toDateString();
+
+  const wasSentInTheLastHour = calculateMinutesPassed(sentAtDate) < 60;
+  const [minutesAgo, setMinutesAgo] = useState(calculateMinutesPassed(sentAtDate));
 
   function verifyPlural() {
     return minutesAgo > 1 ? 's' : '';
   }
 
   useEffect(() => {
-    function minhaFuncao() {
-      if (!isLastMessage) return;
+    function increaseMinutesAgo() {
       setMinutesAgo((prev) => prev + 1);
     }
 
     const OneMinuteInMilliseconds = 60000;
-    const intervalId = setInterval(minhaFuncao, OneMinuteInMilliseconds);
+
+    const intervalId = setInterval(increaseMinutesAgo, OneMinuteInMilliseconds);
 
     return () => clearInterval(intervalId);
   }, []);
 
+  const hours = sentAtDate.getHours();
+  const minutes = sentAtDate.getMinutes();
+
+  const hoursSerialized = hours.toString().padStart(2, '0');
+  const minutesSerialized = minutes.toString().padEnd(2, '0');
+
+  const verifyJustSent = () => {
+    const minuteWithPluralIfNeeded = `minute${verifyPlural()}`;
+    const minutes = `${minutesAgo} ${minuteWithPluralIfNeeded} ago`;
+
+    return minutesAgo ? minutes : 'Just now';
+  };
+
   return (
     <HStack>
       {isFirstMessage && (
-        <img src={sender_image_url} alt="" className="w-12 rounded-full" />
+        <img src={senderImageUrl} alt="" className="w-12 rounded-full" />
       )}
       <VStack className="ml-3">
         <HStack className="items-center space-x-4">
-          <h3 className="text-lg font-semibold">{sender_name}</h3>
-          <p>{minutesAgo ? `${minutesAgo} min${verifyPlural()} ago` : 'Just now'}</p>
+          <h3 className="text-lg font-semibold">{senderName}</h3>
+
+          {wasSentToday && !wasSentInTheLastHour ? (
+            <HStack>
+              <p>{hoursSerialized}</p>
+              <span>:</span>
+              <p>{minutesSerialized}</p>
+            </HStack>
+          ) : (
+            <p>{verifyJustSent()}</p>
+          )}
+
+          {!wasSentToday && (
+            <HStack className="space-x-1 items-center">
+              <p>{sentAtDate.toLocaleString('default', { month: 'long' })}</p>
+              <p className="font-larsseit text-xs">{sentAtDate.getDate()}</p>
+            </HStack>
+          )}
         </HStack>
         <p>{content}</p>
       </VStack>
