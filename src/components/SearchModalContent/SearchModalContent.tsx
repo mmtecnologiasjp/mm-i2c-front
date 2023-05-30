@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom';
 import { groupImageDefault } from '../../constants/images_template';
 import { useUserGroupsQuery } from '../../hooks/useUserGroupsQuery';
 import { useUserPrivateConversationsQuery } from '../../hooks/useUserPrivateConversations';
+import { User } from '../../hooks/useUserQuery/types';
+import { useOtherUserOnPrivateConversation } from '../../store/useOtherUserOnPrivateConversation';
 import { HStack } from '../HStack';
 
 export function SearchModalContent({
@@ -15,6 +17,14 @@ export function SearchModalContent({
   const { groups } = useUserGroupsQuery();
   const { privateConversationsUsers } = useUserPrivateConversationsQuery();
   const [searchTerm, setSearchTerm] = useState('');
+  const {
+    actions: { storeOtherUser },
+  } = useOtherUserOnPrivateConversation();
+
+  const handleClickOnUser = (user: User) => {
+    storeOtherUser(user);
+    onCloseDueNavigation();
+  };
 
   return (
     <>
@@ -57,7 +67,7 @@ export function SearchModalContent({
             <li key={user.uuid}>
               <Link
                 to={`/privateConversation/${user.privateConversationUuid}`}
-                onClick={onCloseDueNavigation}
+                onClick={() => handleClickOnUser(user)}
               >
                 <HStack className="items-center space-x-4">
                   <img
