@@ -73,16 +73,14 @@ export function Message({
         <HStack className="items-center space-x-4">
           <h3 className="text-lg font-semibold">{senderName}</h3>
 
-          {wasSentToday && !wasSentInTheLastHour ? (
+          {wasSentToday && !wasSentInTheLastHour && (
             <HStack>
               <p>{hoursSerialized}</p>
               <span>:</span>
               <p>{minutesSerialized}</p>
             </HStack>
-          ) : (
-            <p>{verifyJustSent()}</p>
           )}
-
+          {wasSentToday && wasSentInTheLastHour && <p>{verifyJustSent()}</p>}
           {!wasSentToday && (
             <HStack className="space-x-1 items-center">
               <p>{sentAtDate.toLocaleString('default', { month: 'long' })}</p>
