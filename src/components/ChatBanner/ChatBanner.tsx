@@ -1,17 +1,14 @@
 import { BsFillChatFill } from 'react-icons/bs';
 import { MdAddTask } from 'react-icons/md';
 
-import { useOtherUserOnPrivateConversation } from '../../store/useOtherUserOnPrivateConversation';
 import { HStack } from '../HStack';
 
-export function ChatBanner() {
-  const { otherUser } = useOtherUserOnPrivateConversation();
-
+export function ChatBanner({ imageUrl, name }: { imageUrl: string; name: string }) {
   return (
     <HStack className="bg-gray-800 mt-5 rounded-lg p-5">
-      <img src={otherUser?.avatar_url ?? ''} alt="" className="w-16 h-16 rounded-full" />
+      <img src={imageUrl} alt="" className="w-16 h-16 rounded-full" />
       <div>
-        <h3 className="ml-3.5 text-xl font-larsseit">{otherUser?.first_name}</h3>
+        <h3 className="ml-3.5 text-xl font-larsseit">{name}</h3>
         <HStack className="space-x-5 items-center">
           <div className="chat chat-start">
             <HStack className="chat-bubble items-center space-x-2">
