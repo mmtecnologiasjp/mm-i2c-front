@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
+import { useRouteUUID } from '../../hooks/useRouteUUID';
 import { useUserPrivateConversationsQuery } from '../../hooks/useUserPrivateConversations';
 import { useOtherUserOnPrivateConversation } from '../../store/useOtherUserOnPrivateConversation';
 import { NavBarList } from '../NavBarList';
@@ -8,8 +9,7 @@ import { NavBarList } from '../NavBarList';
 export function PrivateConversations() {
   const { privateConversationsUsers } = useUserPrivateConversationsQuery();
   const navigate = useNavigate();
-  const location = useLocation();
-  const uuid = location.pathname.split('/')[2];
+  const { uuid } = useRouteUUID();
   const {
     actions: { storeOtherUser },
   } = useOtherUserOnPrivateConversation();
@@ -22,7 +22,6 @@ export function PrivateConversations() {
 
     if (!userClicked) return;
 
-    console.log(userClicked, 'triggered');
     storeOtherUser(userClicked);
 
     return navigate(`/privateConversation/${uuid}`);
