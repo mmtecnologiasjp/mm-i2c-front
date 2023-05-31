@@ -1,3 +1,6 @@
+import { Message } from '../usePrivateConversationQuery/types';
+import { User } from '../useUserQuery/types';
+
 export interface Group {
   uuid: string;
   name: string;
@@ -7,4 +10,8 @@ export interface Group {
   created_at: string;
   updated_at: string;
   deleted_at: string;
+}
+
+export interface GroupWithMessage extends Group {
+  messages: Message[];
 }
