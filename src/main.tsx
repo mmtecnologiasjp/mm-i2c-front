@@ -5,7 +5,6 @@ import ReactDOM from 'react-dom/client';
 import { Toaster } from 'react-hot-toast';
 import { QueryClient, QueryClientProvider } from 'react-query';
 
-import App from './App';
 import { Routes } from './routes';
 
 const client = new QueryClient();
