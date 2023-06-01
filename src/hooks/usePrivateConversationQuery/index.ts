@@ -13,10 +13,12 @@ const fetchPrivateConversation = async (uuid: string) => {
 export const usePrivateConversationQuery = (uuid: string | undefined) => {
   const { isGroupRoute } = useIsGroupRoute();
 
-  if (isGroupRoute || !uuid) return { privateConversation: undefined };
-
   const { data } = useQuery({
-    queryFn: () => fetchPrivateConversation(uuid),
+    queryFn: () => {
+      if (isGroupRoute || !uuid) return;
+
+      return fetchPrivateConversation(uuid);
+    },
     queryKey: ['private_conversation', uuid],
   });
 

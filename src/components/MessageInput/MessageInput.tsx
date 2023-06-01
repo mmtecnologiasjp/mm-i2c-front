@@ -1,7 +1,7 @@
 import { FormEvent, useState } from 'react';
 import { BsFillSendFill } from 'react-icons/bs';
 import { ImAttachment } from 'react-icons/im';
-import { useLocation, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 import { useCreateMessage } from '../../hooks/useCreateMessage';
 import { useIsGroupRoute } from '../../hooks/useIsGroupRoute';

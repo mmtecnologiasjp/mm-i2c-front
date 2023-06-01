@@ -1,16 +1,16 @@
-import { useInviteToPrivateConversation } from '../../hooks/useInviteToPrivateConversation';
+import { useInviteToGroup } from '../../hooks/useInviteToGroup';
 import { TypeaheadUserEmailInput } from '../TypeaheadUserEmailInput';
 
-export function InvitePersonModalContent({
+export function InviteMemberModalContent({
   onCloseDueNavigation,
 }: {
   onCloseDueNavigation: () => void;
 }) {
-  const handleInvite = useInviteToPrivateConversation(onCloseDueNavigation);
+  const { handleInvite } = useInviteToGroup(onCloseDueNavigation);
 
   return (
     <div>
-      <h3 className="modal-header">Invite a person</h3>
+      <h3>Invite a person to your group</h3>
       <div className="divider"></div>
       <TypeaheadUserEmailInput onSend={handleInvite} />
     </div>

@@ -1,5 +1,14 @@
 import { useEffect, useState } from 'react';
+import { useQueryClient } from 'react-query';
+import { v4 } from 'uuid';
 
+import { socket } from '../../hooks/useCreateMessage';
+import { CreateMessageDTO } from '../../hooks/useCreateMessage/types';
+import { useIsGroupRoute } from '../../hooks/useIsGroupRoute';
+import { PrivateConversation } from '../../hooks/usePrivateConversationQuery/types';
+import { useRouteUUID } from '../../hooks/useRouteUUID';
+import { GroupWithMessage } from '../../hooks/useUserGroupsQuery/types';
+import { useUser } from '../../store/useUser';
 import { HStack } from '../HStack';
 import { VStack } from '../VStack';
 
@@ -18,7 +27,7 @@ export function Message({
   isLastMessage: boolean;
   isFirstMessage: boolean;
 }) {
-  function calculateMinutesPassed(endDate: Date) {
+  const calculateMinutesPassed = (endDate: Date) => {
     const start = new Date().getTime();
     const end = new Date(endDate).getTime();
 
@@ -26,7 +35,7 @@ export function Message({
     const minutesPassed = Math.floor(difference / 60000);
 
     return minutesPassed;
-  }
+  };
 
   const sentAtDate = new Date(sentAt);
 

@@ -11,7 +11,9 @@ export function PrivateConversationChat() {
     <div className="flex-1">
       <ChatContainer>
         {otherUser && (
-          <ChatBanner imageUrl={otherUser.avatar_url ?? ''} name={otherUser.first_name} />
+          <ChatBanner imageUrl={otherUser.avatar_url ?? ''} name={otherUser.first_name}>
+            <p>a</p>
+          </ChatBanner>
         )}
         <Chat />
         <MessageInput />

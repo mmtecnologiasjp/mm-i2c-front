@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { Chat } from '../../components/Chat';
 import { ChatBanner } from '../../components/ChatBanner';
 import { ChatContainer } from '../../components/ChatContainer';
+import { GroupBannerOptions } from '../../components/GroupBannerOptions';
 import { MessageInput } from '../../components/MessageInput';
 import { groupImageDefault } from '../../constants/images_template';
 import { useGroupQuery } from '../../hooks/useGroupQuery';
@@ -15,10 +16,9 @@ export function GroupChat() {
     <div className="flex-1">
       <ChatContainer>
         {group && (
-          <ChatBanner
-            imageUrl={group?.image_url || groupImageDefault}
-            name={group.name}
-          />
+          <ChatBanner imageUrl={group?.image_url || groupImageDefault} name={group.name}>
+            <GroupBannerOptions />
+          </ChatBanner>
         )}
         <Chat />
         <MessageInput />

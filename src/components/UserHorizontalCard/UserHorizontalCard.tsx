@@ -19,6 +19,7 @@ export function UserHorizontalCard() {
       <p className="font-larsseit space-x-1 text-white">
         <span>{user?.first_name}</span>
         <span>{user?.last_name}</span>
+        <p>{user?.email}</p>
       </p>
     </HStack>
   );
