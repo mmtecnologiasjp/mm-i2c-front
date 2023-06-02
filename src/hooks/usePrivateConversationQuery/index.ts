@@ -20,6 +20,7 @@ export const usePrivateConversationQuery = (uuid: string | undefined) => {
       return fetchPrivateConversation(uuid);
     },
     queryKey: ['private_conversation', uuid],
+    staleTime: Infinity,
   });
 
   return { privateConversation: data };

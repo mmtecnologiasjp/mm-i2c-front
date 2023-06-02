@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 import { useUserQuery } from '../../hooks/useUserQuery';
 import { useUser } from '../../store/useUser';

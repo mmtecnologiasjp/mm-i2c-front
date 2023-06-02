@@ -3,28 +3,29 @@ import { BsFillSendFill } from 'react-icons/bs';
 import { ImAttachment } from 'react-icons/im';
 import { useParams } from 'react-router-dom';
 
-import { useCreateMessage } from '../../hooks/useCreateMessage';
+import { socket } from '../../hooks/useCreateMessage';
 import { useIsGroupRoute } from '../../hooks/useIsGroupRoute';
 import { useUser } from '../../store/useUser';
 
 export function MessageInput() {
   const [message, setMessage] = useState('');
   const { uuid } = useParams();
-  const mutate = useCreateMessage();
+  // const mutate = useCreateMessage();
   const { user } = useUser();
   const { isGroupRoute } = useIsGroupRoute();
 
   const handleSendMessage = (e: FormEvent) => {
     e.preventDefault();
     if (!message || !user || !uuid) return;
-
-    mutate({
+    const data = {
       content: message,
       group_uuid: isGroupRoute ? uuid : null,
       private_conversation_uuid: isGroupRoute ? null : uuid,
       sender_uuid: user?.uuid,
       type: 'text',
-    });
+    };
+
+    socket.emit('send-message', data);
     setMessage('');
   };
 

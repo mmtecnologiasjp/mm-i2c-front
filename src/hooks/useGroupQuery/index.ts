@@ -17,6 +17,7 @@ export const useGroupQuery = (uuid: string | undefined) => {
   const { data } = useQuery({
     queryFn: () => fetchGroup(uuid),
     queryKey: ['group', uuid],
+    staleTime: Infinity,
   });
 
   return { group: data };

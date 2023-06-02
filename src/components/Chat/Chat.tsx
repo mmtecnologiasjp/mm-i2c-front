@@ -18,9 +18,11 @@ export function Chat() {
 
   useNewWebSocketMessage();
 
+  console.log(privateConversation?.messages);
+
   return (
-    <VStack className="h-[calc(100vh-10rem)]">
-      <div className="mt-12 space-y-4 overflow-scroll scroll-m-0 bg-gray-900">
+    <VStack className="h-[calc(100vh-14rem)]">
+      <div className="mt-12 space-y-4 overflow-scroll scroll-m-0">
         {isGroupRoute ? (
           group?.messages.map((message) => (
             <Message
