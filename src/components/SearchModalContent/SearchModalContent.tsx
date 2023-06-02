@@ -43,7 +43,7 @@ export function SearchModalContent({
           ?.filter((group) => group.name.toLowerCase().includes(searchTerm.toLowerCase()))
           .map((group) => (
             <li key={group.uuid}>
-              <Link to={`/group/${group.uuid}`} onClick={onCloseDueNavigation}>
+              <Link to={`/group/${group.uuid}/chat`} onClick={onCloseDueNavigation}>
                 <HStack className="items-center space-x-4">
                   <img
                     src={group.image_url || groupImageDefault}
@@ -66,7 +66,7 @@ export function SearchModalContent({
           .map((user) => (
             <li key={user.uuid}>
               <Link
-                to={`/privateConversation/${user.privateConversationUuid}`}
+                to={`/privateConversation/${user.privateConversationUuid}/chat`}
                 onClick={() => handleClickOnUser(user)}
               >
                 <HStack className="items-center space-x-4">

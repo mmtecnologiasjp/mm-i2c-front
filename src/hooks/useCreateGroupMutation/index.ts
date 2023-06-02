@@ -24,7 +24,7 @@ export const useCreateGroupMutation = () => {
       queryClient.setQueryData<Group[]>([groupKey], (oldData) => {
         if (!oldData) return [];
 
-        navigate(`/group/${newData.uuid}`);
+        navigate(`/group/${newData.uuid}/chat`);
         return [...oldData, newData];
       });
     },

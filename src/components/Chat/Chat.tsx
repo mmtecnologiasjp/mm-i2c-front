@@ -9,7 +9,7 @@ import { VStack } from '../VStack';
 
 export function Chat() {
   const { uuid } = useParams();
-  const { privateConversation } = usePrivateConversationQuery(uuid);
+  const { privateConversation } = usePrivateConversationQuery();
   const { group } = useGroupQuery(uuid);
   const { isGroupRoute } = useIsGroupRoute();
 

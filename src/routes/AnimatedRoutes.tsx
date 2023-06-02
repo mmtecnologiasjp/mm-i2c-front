@@ -23,9 +23,12 @@ export function AnimatedRoutes() {
         <NavBar />
         <RoutesGroup location={location} key={location.pathname}>
           <Route path="/" element={renderBasedOnAuthStatus()} />
-          <Route path="/group/:uuid" element={renderBasedOnAuthStatus(<GroupChat />)} />
           <Route
-            path="/privateConversation/:uuid"
+            path="/group/:uuid/chat"
+            element={renderBasedOnAuthStatus(<GroupChat />)}
+          />
+          <Route
+            path="/privateConversation/:uuid/chat"
             element={renderBasedOnAuthStatus(<PrivateConversationChat />)}
           />
         </RoutesGroup>

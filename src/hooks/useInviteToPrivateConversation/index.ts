@@ -25,7 +25,7 @@ export const useInviteToPrivateConversation = (onCloseDueNavigation: () => void)
       onCloseDueNavigation();
       storeOtherUser(userAlreadyInConversation);
       return navigate(
-        `/privateConversation/${userAlreadyInConversation.privateConversationUuid}`,
+        `/privateConversation/${userAlreadyInConversation.privateConversationUuid}/chat`,
       );
     }
 

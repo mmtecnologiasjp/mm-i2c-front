@@ -11,7 +11,7 @@ export function Groups() {
   const { uuid } = useRouteUUID();
 
   const handleNavigate = (uuid: string) => {
-    navigate(`/group/${uuid}`);
+    navigate(`/group/${uuid}/chat`);
   };
 
   return (

@@ -7,16 +7,22 @@ import { GroupBannerOptions } from '../../components/GroupBannerOptions';
 import { MessageInput } from '../../components/MessageInput';
 import { groupImageDefault } from '../../constants/images_template';
 import { useGroupQuery } from '../../hooks/useGroupQuery';
+import { useOnBannerIconClicked } from '../../hooks/useOnBannerIconClicked';
 
 export function GroupChat() {
   const { uuid } = useParams();
   const { group } = useGroupQuery(uuid) ?? {};
+  const { onNavigate } = useOnBannerIconClicked();
 
   return (
     <div className="flex-1">
       <ChatContainer>
         {group && (
-          <ChatBanner imageUrl={group?.image_url || groupImageDefault} name={group.name}>
+          <ChatBanner
+            imageUrl={group?.image_url || groupImageDefault}
+            name={group.name}
+            onIconClicked={onNavigate}
+          >
             <GroupBannerOptions />
           </ChatBanner>
         )}

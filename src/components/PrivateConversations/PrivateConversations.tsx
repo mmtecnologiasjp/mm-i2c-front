@@ -24,7 +24,7 @@ export function PrivateConversations() {
 
     storeOtherUser(userClicked);
 
-    return navigate(`/privateConversation/${uuid}`);
+    return navigate(`/privateConversation/${uuid}/chat`);
   };
 
   useEffect(() => {

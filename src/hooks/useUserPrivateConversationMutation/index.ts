@@ -38,7 +38,7 @@ export const useUserPrivateConversationMutation = () => {
           if (!oldData) return [];
 
           storeOtherUser(newData);
-          navigate(`/privateConversation/${newData.privateConversationUuid}`);
+          navigate(`/privateConversation/${newData.privateConversationUuid}/chat`);
 
           return [...oldData, newData];
         },

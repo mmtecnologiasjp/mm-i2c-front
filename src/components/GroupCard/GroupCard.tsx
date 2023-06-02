@@ -16,7 +16,7 @@ export function GroupCard({
   const navigate = useNavigate();
 
   const handleNavigation = () => {
-    navigate(`/group/${uuid}`);
+    navigate(`/group/chat/${uuid}`);
   };
 
   return (
