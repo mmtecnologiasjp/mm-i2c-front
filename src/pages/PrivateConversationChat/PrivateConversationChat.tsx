@@ -12,7 +12,7 @@ export function PrivateConversationChat() {
       <ChatContainer>
         {otherUser && (
           <ChatBanner imageUrl={otherUser.avatar_url ?? ''} name={otherUser.first_name}>
-            <p>a</p>
+            <></>
           </ChatBanner>
         )}
         <Chat />
