@@ -21,6 +21,8 @@ export const useNewWebSocketMessage = () => {
 
   const eventListener = (message: MessageWithSender) => {
     const keyBasedOnRoute = isGroupRoute ? 'group' : 'private_conversation';
+    if (message.private_conversation_uuid !== uuid) return;
+
     const queryKey = [keyBasedOnRoute, uuid];
     console.count();
     console.log('triggered', message.content);
