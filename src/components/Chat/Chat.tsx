@@ -1,8 +1,5 @@
-import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { socket } from '../../hooks/useCreateMessage';
-import { CreateMessageDTO } from '../../hooks/useCreateMessage/types';
 import { useGroupQuery } from '../../hooks/useGroupQuery';
 import { useIsGroupRoute } from '../../hooks/useIsGroupRoute';
 import { useNewWebSocketMessage } from '../../hooks/useNewWebSocketMessage';
@@ -17,8 +14,6 @@ export function Chat() {
   const { isGroupRoute } = useIsGroupRoute();
 
   useNewWebSocketMessage();
-
-  console.log(privateConversation?.messages);
 
   return (
     <VStack className="h-[calc(100vh-14rem)]">

@@ -1,10 +1,8 @@
 import { useEffect } from 'react';
 import { useQueryClient } from 'react-query';
-import { v4 } from 'uuid';
 
 import { useUser } from '../../store/useUser';
 import { socket } from '../useCreateMessage';
-import { CreateMessageDTO } from '../useCreateMessage/types';
 import { useIsGroupRoute } from '../useIsGroupRoute';
 import {
   MessageWithSender,
@@ -24,8 +22,6 @@ export const useNewWebSocketMessage = () => {
     if (message.private_conversation_uuid !== uuid) return;
 
     const queryKey = [keyBasedOnRoute, uuid];
-    console.count();
-    console.log('triggered', message.content);
     queryClient.cancelQueries({ queryKey: [queryKey] });
 
     const previousData = queryClient.getQueryData<PrivateConversation | GroupWithMessage>(
