@@ -1,6 +1,6 @@
 import { User } from '../useUserQuery/types';
 
-interface Message {
+export interface Message {
   uuid: string;
   content: string;
   group_uuid: string | null;
@@ -21,4 +21,8 @@ export interface PrivateConversation {
   deleted_at: null;
   messages: Message[] | undefined;
   privateConversationUuid: string;
+}
+
+export interface MessageWithSender extends Message {
+  sender: User;
 }

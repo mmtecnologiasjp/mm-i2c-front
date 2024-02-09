@@ -1,14 +1,14 @@
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import { groupImageDefault } from '../../constants/images_template';
+import { useRouteUUID } from '../../hooks/useRouteUUID';
 import { useUserGroupsQuery } from '../../hooks/useUserGroupsQuery';
 import { NavBarList } from '../NavBarList';
 
 export function Groups() {
   const { groups } = useUserGroupsQuery();
   const navigate = useNavigate();
-  const location = useLocation();
-  const uuid = location.pathname.split('/')[2];
+  const { uuid } = useRouteUUID();
 
   const handleNavigate = (uuid: string) => {
     navigate(`/group/${uuid}`);

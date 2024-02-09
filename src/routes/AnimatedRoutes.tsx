@@ -11,7 +11,7 @@ export function AnimatedRoutes() {
   const auth = true;
   const location = useLocation();
 
-  const renderBasedOnAuthStatus = (Element?: JSX.Element) => {
+  const renderBasedOnAuthStatus = (Element?: React.JSX.Element) => {
     if (!Element) return auth ? <App /> : <div>Login</div>;
 
     return auth ? Element : <Navigate to={'/'} />;

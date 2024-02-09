@@ -1,11 +1,12 @@
 import { useQuery } from 'react-query';
 
 import { api } from '../../services/api';
+import { useUser } from '../../store/useUser';
 import { UserPrivateConversations } from './types';
 
-const fetchPrivateConversations = async () => {
+const fetchPrivateConversations = async (uuid: string) => {
   const res = await api.get<UserPrivateConversations[]>(
-    `/private-conversations/user/${import.meta.env.VITE_USER_MOCK_UUID}`,
+    `/private-conversations/user/${uuid}`,
   );
 
   return res.data;
@@ -14,8 +15,13 @@ const fetchPrivateConversations = async () => {
 export const privateConversationsQueryKey = 'private_conversations';
 
 export const useUserPrivateConversationsQuery = () => {
+  const { user } = useUser();
   const { data } = useQuery({
-    queryFn: fetchPrivateConversations,
+    queryFn: () => {
+      if (!user?.uuid) return;
+
+      return fetchPrivateConversations(user.uuid);
+    },
     queryKey: [privateConversationsQueryKey],
   });
 
