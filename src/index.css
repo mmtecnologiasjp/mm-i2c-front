@@ -1,3 +1,10 @@
+@import url(//db.onlinewebfonts.com/c/f4c9951744c0ef14010218fc1b2f7938?family=Larsseit);
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .modal-header {
+    @apply font-larsseit mt-0.5 text-xl;
+  }
+}
