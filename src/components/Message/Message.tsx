@@ -76,7 +76,7 @@ export function Message({
   return (
     <HStack>
       {isFirstMessage && (
-        <img src={senderImageUrl} alt="" className="w-12 rounded-full" />
+        <img src={senderImageUrl} alt="" className="w-12 h-12 rounded-full" />
       )}
       <VStack className="ml-3">
         <HStack className="items-center space-x-4">
